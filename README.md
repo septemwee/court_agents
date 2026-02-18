@@ -26,7 +26,6 @@ Verdict Writer (Final Report)
 Write File
 ```
 
----
 
 # Agent Roles
 
@@ -35,7 +34,6 @@ Write File
 - บันทึกลง state ใน field: `PROMPT`
 - ส่งต่อไปยังระบบศาล
 
----
 
 ## 2️. Investigation Team (ParallelAgent)
 
@@ -51,7 +49,6 @@ Write File
 - ห้ามกล่าวถึงด้านลบ
 - บันทึกลง `pos_data`
 
----
 
 ### 🔴 Critic Researcher
 ค้นหาข้อมูลด้านลบจาก Wikipedia:
@@ -65,7 +62,6 @@ Write File
 - ห้ามกล่าวถึงคำชม
 - บันทึกลง `neg_data`
 
----
 
 ## 3️. Judge (Loop Control)
 
@@ -81,9 +77,8 @@ Write File
 ถ้าผ่าน:
 - เรียก `exit_loop`
 
----
 
-## 4️⃣ Verdict Writer
+## 4️. Verdict Writer
 
 เมื่อข้อมูลครบถ้วน:
 - เขียนรายงาน ≥ 350 คำ
@@ -105,7 +100,6 @@ Write File
 court_agents/court_reports/
 ```
 
----
 
 # Tools Used
 
@@ -141,7 +135,7 @@ court_agents/court_reports/<filename>
 
 ---
 
-# 🧾 State Variables
+# State Variables
 
 | Field | Description |
 |--------|------------|
@@ -180,5 +174,6 @@ Historical Court Agent System คือระบบ Multi-Agent Orchestration �
 - การทดลอง Multi-Agent Systems
 - การสาธิต AI Orchestration ขั้นสูง
 - การสร้างระบบวิเคราะห์เชิงวิพากษ์แบบอัตโนมัติ
+
 
 
