@@ -119,7 +119,7 @@ court_agents/court_reports/
 
 # Tools Used
 
-## Wikipedia Tool
+## 1. Wikipedia Tool
 ใช้ผ่าน Langchain:
 
 ```python
@@ -127,7 +127,7 @@ WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
 ```
 
 
-## append_to_state
+## 2. append_to_state
 ใช้เก็บข้อมูลใน state:
 
 ```python
@@ -135,7 +135,7 @@ append_to_state(tool_context, field, response)
 ```
 
 
-## write_file
+## 3. write_file
 บันทึกรายงานลงไฟล์:
 
 ```python
@@ -143,7 +143,7 @@ court_agents/court_reports/<filename>
 ```
 
 
-## exit_loop
+## 4. exit_loop
 ใช้โดย Judge เมื่อผ่านเกณฑ์
 
 
@@ -185,6 +185,7 @@ Historical Court Agent System คือระบบ Multi-Agent Orchestration �
 - การทดลอง Multi-Agent Systems
 - การสาธิต AI Orchestration ขั้นสูง
 - การสร้างระบบวิเคราะห์เชิงวิพากษ์แบบอัตโนมัติ
+
 
 
 
