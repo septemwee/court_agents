@@ -4,28 +4,27 @@
 ระบบจะวิเคราะห์บุคคลหรือเหตุการณ์ผ่านกระบวนการสืบสวน 2 ฝ่าย ได้แก่ ฝ่ายสนับสนุน และฝ่ายคัดค้าน
 จากนั้นให้ผู้พิพากษาตรวจสอบความสมดุล ก่อนสรุปคำพิพากษาเชิงวิเคราะห์อย่างเป็นกลาง
 
----
 
 # System Architecture
 
+```mermaid
+graph TD
+    User([User Input]) --> Inquiry[Inquiry Agent]
+    Inquiry --> CourtSystem[SequentialAgent: Court System]
+    
+    subgraph TrialRoom [LoopAgent: Trial Room]
+        direction TB
+        Investigate[ParallelAgent: Investigation Team]
+        Investigate --> Admirer[Admirer: Positive Research]
+        Investigate --> Critic[Critic: Negative Research]
+        Admirer & Critic --> Judge[Judge: Validation & Balance Check]
+    end
+    
+    CourtSystem --> TrialRoom
+    Judge -- "Reject (Iterate)" --> Investigate
+    Judge -- "Approve (Exit)" --> Writer[Verdict Writer]
+    Writer --> File[(Write File)]
 ```
-User
-  ↓
-Inquiry Agent
-  ↓
-SequentialAgent (Court System)
-  ↓
-LoopAgent (Trial Loop)
-     ├── ParallelAgent (Investigation Team)
-     │       ├── Admirer (Positive Research)
-     │       └── Critic Researcher (Negative Research)
-     └── Judge (Validation & Balance Check)
-  ↓
-Verdict Writer (Final Report)
-  ↓
-Write File
-```
-
 
 # Agent Roles
 
@@ -37,7 +36,7 @@ Write File
 
 ## 2️. Investigation Team (ParallelAgent)
 
-### 🟢 Admirer
+### 2.1 Admirer
 ค้นหาข้อมูลด้านบวกจาก Wikipedia:
 - achievements
 - accomplishments
@@ -50,7 +49,7 @@ Write File
 - บันทึกลง `pos_data`
 
 
-### 🔴 Critic Researcher
+### 2.2 Critic Researcher
 ค้นหาข้อมูลด้านลบจาก Wikipedia:
 - controversy
 - criticism
@@ -72,7 +71,7 @@ Write File
 
 ถ้าไม่ผ่าน:
 - เขียน feedback ลง `judge_feedback`
-- ระบบจะวนลูปใหม่
+- ระบบจะวนลูปใหม่ โดยส่งกลับไปที่ Investigation Team
 
 ถ้าผ่าน:
 - เรียก `exit_loop`
@@ -110,7 +109,6 @@ court_agents/court_reports/
 WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
 ```
 
----
 
 ## append_to_state
 ใช้เก็บข้อมูลใน state:
@@ -119,7 +117,6 @@ WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
 append_to_state(tool_context, field, response)
 ```
 
----
 
 ## write_file
 บันทึกรายงานลงไฟล์:
@@ -128,12 +125,10 @@ append_to_state(tool_context, field, response)
 court_agents/court_reports/<filename>
 ```
 
----
 
 ## exit_loop
 ใช้โดย Judge เมื่อผ่านเกณฑ์
 
----
 
 # State Variables
 
@@ -144,7 +139,6 @@ court_agents/court_reports/<filename>
 | neg_data | ข้อมูลด้านลบ |
 | judge_feedback | ข้อเสนอแนะจากผู้พิพากษา |
 
----
 
 # Summary
 
@@ -174,6 +168,7 @@ Historical Court Agent System คือระบบ Multi-Agent Orchestration �
 - การทดลอง Multi-Agent Systems
 - การสาธิต AI Orchestration ขั้นสูง
 - การสร้างระบบวิเคราะห์เชิงวิพากษ์แบบอัตโนมัติ
+
 
 
 
