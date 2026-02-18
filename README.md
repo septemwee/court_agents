@@ -8,30 +8,40 @@
 # System Architecture
 
 ```mermaid
-graph TD
-    User([User Input]) --> Inquiry[Inquiry Agent]
-    Inquiry --> CourtSystem[SequentialAgent: Court System]
-    
-    subgraph TrialRoom [LoopAgent: Trial Room]
+flowchart TD
+
+    %% ===== Input Layer =====
+    U([User Input]) --> I[Inquiry Agent]
+
+    %% ===== Orchestration Layer =====
+    I --> CS[[SequentialAgent<br/>Court System]]
+
+    %% ===== Trial Layer =====
+    CS --> TR
+
+    subgraph TR [LoopAgent: Trial Room]
         direction TB
         
-        subgraph InvestigationTeam [ParallelAgent: Investigation Team]
+        subgraph IT [ParallelAgent: Investigation Team]
             direction LR
-            Admirer[Admirer: Positive Research]
-            Critic[Critic: Negative Research]
+            A[Admirer<br/>Positive Research]
+            C[Critic Researcher<br/>Negative Research]
         end
 
-        Judge[Judge: Validation & Balance Check]
-        
-        InvestigationTeam --> Judge
+        J[Judge<br/>Validation and Balance Check]
+
+        A --> J
+        C --> J
     end
-    
-    CourtSystem --> TrialRoom
-    Judge -- "Reject & Feedback (Iterate)" --> InvestigationTeam
-    Judge -- "Approve (Exit Loop)" --> Writer[Verdict Writer]
-    
-    Writer --> File[(Write File)]
+
+    %% ===== Loop Control =====
+    J -- Reject and Provide Feedback --> IT
+    J -- Approve and Exit Loop --> VW[Verdict Writer]
+
+    %% ===== Output Layer =====
+    VW --> F[(Court Report File)]
 ```
+
 
 # Agent Roles
 
@@ -175,6 +185,7 @@ Historical Court Agent System คือระบบ Multi-Agent Orchestration �
 - การทดลอง Multi-Agent Systems
 - การสาธิต AI Orchestration ขั้นสูง
 - การสร้างระบบวิเคราะห์เชิงวิพากษ์แบบอัตโนมัติ
+
 
 
 
