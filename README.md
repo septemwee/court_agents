@@ -14,15 +14,22 @@ graph TD
     
     subgraph TrialRoom [LoopAgent: Trial Room]
         direction TB
-        Investigate[ParallelAgent: Investigation Team]
-        Investigate --> Admirer[Admirer: Positive Research]
-        Investigate --> Critic[Critic: Negative Research]
-        Admirer & Critic --> Judge[Judge: Validation & Balance Check]
+        
+        subgraph InvestigationTeam [ParallelAgent: Investigation Team]
+            direction LR
+            Admirer[Admirer: Positive Research]
+            Critic[Critic: Negative Research]
+        end
+
+        Judge[Judge: Validation & Balance Check]
+        
+        InvestigationTeam --> Judge
     end
     
     CourtSystem --> TrialRoom
-    Judge -- "Reject (Iterate)" --> Investigate
-    Judge -- "Approve (Exit)" --> Writer[Verdict Writer]
+    Judge -- "Reject & Feedback (Iterate)" --> InvestigationTeam
+    Judge -- "Approve (Exit Loop)" --> Writer[Verdict Writer]
+    
     Writer --> File[(Write File)]
 ```
 
@@ -168,6 +175,7 @@ Historical Court Agent System คือระบบ Multi-Agent Orchestration �
 - การทดลอง Multi-Agent Systems
 - การสาธิต AI Orchestration ขั้นสูง
 - การสร้างระบบวิเคราะห์เชิงวิพากษ์แบบอัตโนมัติ
+
 
 
 
